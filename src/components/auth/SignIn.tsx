@@ -69,7 +69,7 @@ const SignIn = () => {
         }
     });
 
-    console.log("errors is :", errors)
+    // console.log("errors is :", errors)
     // console.log("errorsSignIn is :", errorsSignIn)
 
     const onSubmit = async (data: SignUpFormValues) => {
