@@ -8,7 +8,7 @@ import axios, {
 import { store } from "@/store/store";
 import { setTokens, logout } from "@/store/Slices/authSlice";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
 // Shape of refresh response from your backend – adjust if different
 interface RefreshResponse {
@@ -22,6 +22,7 @@ export interface ApiRequestOptions<T = any> {
   method?: Method;
   params?: any; // body or query
   config?: AxiosRequestConfig<T>;
+  payload?: any;
 }
 
 // Axios instance
@@ -158,13 +159,14 @@ export async function apiRequest<T = any>({
   endpoint,
   method = "GET",
   params,
+  payload,
   config = {},
 }: ApiRequestOptions): Promise<T> {
   try {
     const axiosConfig: AxiosRequestConfig = {
       url: endpoint,
       method,
-      ...(method === "GET" ? { params } : { data: params }),
+      ...(method === "GET" ? { params } : { data: payload ?? params }),
       ...config,
     };
 
